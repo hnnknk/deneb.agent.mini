@@ -37,13 +37,13 @@ public class DiskDriveTask extends Task<Void> {
 
                     TreeItem d = new TreeItem("Жесткий диск №" + i);
 
-                    TreeItem mManufacturer = new TreeItem("Производитель: "
+                    TreeItem dManufacturer = new TreeItem("Производитель: "
                             + diskDrive.getDiskDrives().get("#" + i).get(0).getValue());
-                    TreeItem mModel = new TreeItem("Емкость: "
-                            + diskDrive.getDiskDrives().get("#" + i).get(1).getValue());
+                    TreeItem dModel = new TreeItem("Емкость: "
+                            + diskDrive.getDiskDrives().get("#" + i).get(1).getValue() + " Gb") ;
 
                     d.setExpanded(true);
-                    d.getChildren().addAll(mManufacturer, mModel);
+                    d.getChildren().addAll(dManufacturer, dModel);
                     diskDriveItem.getChildren().add(d);
 
                 }
