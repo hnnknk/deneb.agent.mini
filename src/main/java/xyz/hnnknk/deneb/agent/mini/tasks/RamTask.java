@@ -34,11 +34,11 @@ public class RamTask extends Task<Void> {
                 TreeItem<String> r = new TreeItem<>("Оперативная память №" + i);
 
                 TreeItem<String> rManufacturer = new TreeItem<>("Производитель: "
-                        + ram.getRams().get("#" + i).get(0).getValue());
+                        + ram.getRams().get("#" + i).get(0));
                 TreeItem<String> rSpeed = new TreeItem<>("Скорость: "
-                        + ram.getRams().get("#" + i).get(1).getValue() + "Ghz");
+                        + ram.getRams().get("#" + i).get(1) + "Ghz");
                 TreeItem<String> rCapacity = new TreeItem<>("Емкость: "
-                        + ram.getRams().get("#" + i).get(2).getValue() + " Mb") ;
+                        + ram.getRams().get("#" + i).get(2) + " Mb") ;
 
                 r.setExpanded(true);
                 r.getChildren().addAll(rManufacturer, rSpeed, rCapacity);

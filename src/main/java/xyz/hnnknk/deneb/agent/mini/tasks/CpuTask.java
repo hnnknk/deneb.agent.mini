@@ -30,10 +30,10 @@ public class CpuTask extends Task<Void> {
 
             TreeItem<String> cpuItem = new TreeItem<>("Процессор");
 
-            TreeItem<String> cManufacturer = new TreeItem<>("Производитель: " + cpu.getManufacturer().getValue());
-            TreeItem<String> cModel = new TreeItem<>("Модель: " + cpu.getModel().getValue());
-            TreeItem<String> cSocket = new TreeItem<>("Сокет: " + cpu.getSocket().getValue());
-            TreeItem<String> cCores = new TreeItem<>("Количество ядер: " + cpu.getNumberOfCores().getValue());
+            TreeItem<String> cManufacturer = new TreeItem<>("Производитель: " + cpu.getManufacturer());
+            TreeItem<String> cModel = new TreeItem<>("Модель: " + cpu.getModel());
+            TreeItem<String> cSocket = new TreeItem<>("Сокет: " + cpu.getSocket());
+            TreeItem<String> cCores = new TreeItem<>("Количество ядер: " + cpu.getNumberOfCores());
 
             cpuItem.getChildren().addAll(cManufacturer, cModel, cSocket, cCores);
             cpuItem.setExpanded(true);

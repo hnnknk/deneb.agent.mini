@@ -29,14 +29,8 @@ public class WmiUtility {
         if(list.size() > 1) {
             information.add(Integer.toString(list.size()));
         }
-        for(String s : list) {
-            information.add(s.split("\\s+")[0]);
-        }
-        for(String s : executeCommand("diskdrive", "size")) {
-            long l = Long.parseLong(s.trim());
-            l = l / (1000 * 1000 * 1000);
-            information.add(Long.toString(l));
-        }
+        information.addAll(list);
+        information.addAll(executeCommand("diskdrive", "size"));
         return information;
     }
 
@@ -57,11 +51,8 @@ public class WmiUtility {
         }
         information.addAll(list);
         information.addAll(executeCommand("memorychip", "speed"));
-        for(String s : executeCommand("memorychip","capacity")) {
-            long l = Long.parseLong(s.trim());
-            l = l / (1024 * 1024);
-            information.add(Long.toString(l));
-        }
+        information.addAll(executeCommand("memorychip", "capacity"));
+
         return information;
     }
 

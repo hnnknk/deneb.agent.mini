@@ -1,54 +1,51 @@
 package xyz.hnnknk.deneb.agent.mini.hardwares;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 import java.util.ArrayList;
 
 public class Cpu extends Hardware{
 
-    private final StringProperty manufacturer;
-    private final StringProperty model;
-    private final StringProperty socket;
-    private final StringProperty numberOfCores;
+    private String manufacturer;
+    private String model;
+    private String socket;
+    private String numberOfCores;
 
     public Cpu() {
-        manufacturer = new SimpleStringProperty("Сбор информации");
-        model = new SimpleStringProperty("Сбор информации");
-        socket = new SimpleStringProperty("Сбор информации");
-        numberOfCores = new SimpleStringProperty("Сбор информации");
+        manufacturer = "Неизвестно";
+        model = "Неизвестно";
+        socket = "Неизвестно";
+        numberOfCores = "Неизвестно";
     }
 
-    public StringProperty getManufacturer() {
+    public String getManufacturer() {
         return manufacturer;
     }
 
     private void setManufacturer(String manufacturer) {
-        this.manufacturer.set(manufacturer);
+        this.manufacturer = manufacturer;
     }
 
-    public StringProperty getModel() {
+    public String getModel() {
         return model;
     }
 
     private void setModel(String model) {
-        this.model.set(model);
+        this.model = model;
     }
 
-    public StringProperty getSocket() {
+    public String getSocket() {
         return socket;
     }
 
     private void setSocket(String socket) {
-        this.socket.set(socket);
+        this.socket = socket;
     }
 
-    public StringProperty getNumberOfCores() {
+    public String getNumberOfCores() {
         return numberOfCores;
     }
 
     private void setNumberOfCores(String numberOfCores) {
-        this.numberOfCores.set(numberOfCores);
+        this.numberOfCores = numberOfCores;
     }
 
     public void setInfo(ArrayList<String> input) {

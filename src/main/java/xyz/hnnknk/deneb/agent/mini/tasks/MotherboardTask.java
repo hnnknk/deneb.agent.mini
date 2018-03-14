@@ -30,9 +30,9 @@ public class MotherboardTask extends Task<Void>{
 
             TreeItem<String> motherboardItem = new TreeItem<>("Материнская плата");
 
-            TreeItem<String> mManufacturer = new TreeItem<>("Производитель: " + motherboard.getManufacturer().getValue());
-            TreeItem<String> mModel = new TreeItem<>("Модель: " + motherboard.getModel().getValue());
-            TreeItem<String> mSocket = new TreeItem<>("Сокет: " + motherboard.getSocket().getValue());
+            TreeItem<String> mManufacturer = new TreeItem<>("Производитель: " + motherboard.getManufacturer());
+            TreeItem<String> mModel = new TreeItem<>("Модель: " + motherboard.getModel());
+            TreeItem<String> mSocket = new TreeItem<>("Сокет: " + motherboard.getSocket());
 
             motherboardItem.getChildren().addAll(mManufacturer, mModel, mSocket);
             motherboardItem.setExpanded(true);
