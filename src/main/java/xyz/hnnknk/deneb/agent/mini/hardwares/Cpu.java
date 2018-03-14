@@ -5,7 +5,7 @@ import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 
-public class Cpu {
+public class Cpu extends Hardware{
 
     private StringProperty manufacturer;
     private StringProperty model;

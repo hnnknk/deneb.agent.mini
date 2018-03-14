@@ -1,22 +1,19 @@
 package xyz.hnnknk.deneb.agent.mini;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import xyz.hnnknk.deneb.agent.mini.hardwares.Cpu;
 import xyz.hnnknk.deneb.agent.mini.hardwares.DiskDrive;
 import xyz.hnnknk.deneb.agent.mini.hardwares.Motherboard;
+import xyz.hnnknk.deneb.agent.mini.hardwares.Ram;
 import xyz.hnnknk.deneb.agent.mini.tasks.CpuTask;
 import xyz.hnnknk.deneb.agent.mini.tasks.DiskDriveTask;
 import xyz.hnnknk.deneb.agent.mini.tasks.MotherboardTask;
+import xyz.hnnknk.deneb.agent.mini.tasks.RamTask;
 
-import javax.swing.text.TableView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,6 +29,7 @@ public class Controller implements Initializable {
         Motherboard mother = new Motherboard();
         DiskDrive drive = new DiskDrive();
         Cpu cpu = new Cpu();
+        Ram ram = new Ram();
 
         MotherboardTask mTask = new MotherboardTask(mother, tree);
         Thread t = new Thread(mTask);
@@ -47,6 +45,11 @@ public class Controller implements Initializable {
         Thread t2 = new Thread(cTask);
         t2.setDaemon(true);
         t2.start();
+
+        RamTask rTask = new RamTask(ram, tree);
+        Thread t3 = new Thread(rTask);
+        t3.setDaemon(true);
+        t3.start();
     }
 
     @Override
@@ -56,7 +59,4 @@ public class Controller implements Initializable {
         tree.setRoot(rootItem);
     }
 
-    private void createTreeView() {
-
-    }
 }

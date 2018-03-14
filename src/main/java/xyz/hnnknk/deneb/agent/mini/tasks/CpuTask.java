@@ -24,7 +24,7 @@ public class CpuTask extends Task<Void> {
 
     @Override
     protected Void call() throws Exception {
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(1);
         Platform.runLater(new Runnable() {
 
             @Override

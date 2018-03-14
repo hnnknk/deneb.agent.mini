@@ -67,7 +67,11 @@ public class WmiUtility {
 
     public ArrayList<String> getRamInformation() {
         information = new ArrayList<>();
-        for(String s : executeCommand("memorychip","manufacturer")) {
+        ArrayList<String> list = executeCommand("memorychip", "manufacturer");
+        if(list.size() > 1) {
+            information.add(Integer.toString(list.size()));
+        }
+        for(String s : list) {
             information.add(s);
         }
         for(String s : executeCommand("memorychip","speed")) {
