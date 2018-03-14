@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 public class Cpu extends Hardware{
 
-    private StringProperty manufacturer;
-    private StringProperty model;
-    private StringProperty socket;
-    private StringProperty numberOfCores;
+    private final StringProperty manufacturer;
+    private final StringProperty model;
+    private final StringProperty socket;
+    private final StringProperty numberOfCores;
 
     public Cpu() {
         manufacturer = new SimpleStringProperty("Сбор информации");
@@ -23,7 +23,7 @@ public class Cpu extends Hardware{
         return manufacturer;
     }
 
-    public void setManufacturer(String manufacturer) {
+    private void setManufacturer(String manufacturer) {
         this.manufacturer.set(manufacturer);
     }
 
@@ -31,7 +31,7 @@ public class Cpu extends Hardware{
         return model;
     }
 
-    public void setModel(String model) {
+    private void setModel(String model) {
         this.model.set(model);
     }
 
@@ -39,7 +39,7 @@ public class Cpu extends Hardware{
         return socket;
     }
 
-    public void setSocket(String socket) {
+    private void setSocket(String socket) {
         this.socket.set(socket);
     }
 
@@ -47,7 +47,7 @@ public class Cpu extends Hardware{
         return numberOfCores;
     }
 
-    public void setNumberOfCores(String numberOfCores) {
+    private void setNumberOfCores(String numberOfCores) {
         this.numberOfCores.set(numberOfCores);
     }
 

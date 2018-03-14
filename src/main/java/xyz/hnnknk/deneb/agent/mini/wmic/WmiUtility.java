@@ -8,26 +8,18 @@ import java.util.ArrayList;
 public class WmiUtility {
 
     private ArrayList<String> information;
-    private ArrayList<String> results;
-    private String lastPart;
 
     public WmiUtility() {
 
-        System.out.println(System.getenv());
-        String[] command = {"CMD", "/C", "WMIC /user:savineu /password:deathmushi /node:192.168.2.34 BASEBOARD GET manufacturer"};
+       // System.out.println(System.getenv());
+      //  String[] command = {"CMD", "/C", "WMIC /user:savineu /password:deathmushi /node:192.168.2.34 BASEBOARD GET manufacturer"};
     }
 
     public ArrayList<String> getMotherboardInformation() {
         information = new ArrayList<>();
-        for(String s : executeCommand("baseboard", "manufacturer")) {
-            information.add(s);
-        }
-        for(String s : executeCommand("baseboard", "product")) {
-            information.add(s);
-        }
-        for(String s : executeCommand("cpu","socketdesignation")) {
-            information.add(s);
-        }
+        information.addAll(executeCommand("baseboard", "manufacturer"));
+        information.addAll(executeCommand("baseboard", "product"));
+        information.addAll(executeCommand("cpu", "socketdesignation"));
         return information;
     }
 
@@ -50,18 +42,10 @@ public class WmiUtility {
 
     public ArrayList<String> getCpuInformation() {
         information = new ArrayList<>();
-        for(String s : executeCommand("cpu","manufacturer")) {
-            information.add(s);
-        }
-        for(String s : executeCommand("cpu","name")) {
-            information.add(s);
-        }
-        for(String s : executeCommand("cpu","socketdesignation")) {
-            information.add(s);
-        }
-        for(String s : executeCommand("cpu","numberofcores")) {
-            information.add(s);
-        }
+        information.addAll(executeCommand("cpu", "manufacturer"));
+        information.addAll(executeCommand("cpu", "name"));
+        information.addAll(executeCommand("cpu", "socketdesignation"));
+        information.addAll(executeCommand("cpu", "numberofcores"));
         return information;
     }
 
@@ -71,12 +55,8 @@ public class WmiUtility {
         if(list.size() > 1) {
             information.add(Integer.toString(list.size()));
         }
-        for(String s : list) {
-            information.add(s);
-        }
-        for(String s : executeCommand("memorychip","speed")) {
-            information.add(s);
-        }
+        information.addAll(list);
+        information.addAll(executeCommand("memorychip", "speed"));
         for(String s : executeCommand("memorychip","capacity")) {
             long l = Long.parseLong(s.trim());
             l = l / (1024 * 1024);
@@ -86,8 +66,8 @@ public class WmiUtility {
     }
 
     private synchronized ArrayList<String> executeCommand(String hardware, String type) {
-        results = new ArrayList<>();
-        lastPart = "WMIC " + hardware + " GET " + type;
+        ArrayList<String> results = new ArrayList<>();
+        String lastPart = "WMIC " + hardware + " GET " + type;
         String[] command = {"CMD", "/C", lastPart};
 
         try {

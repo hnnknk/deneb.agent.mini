@@ -11,9 +11,9 @@ import java.util.concurrent.TimeUnit;
 
 public class MotherboardTask extends Task<Void>{
 
-    private Motherboard motherboard;
-    private WmiUtility wmiUtility;
-    private TreeView tree;
+    private final Motherboard motherboard;
+    private final WmiUtility wmiUtility;
+    private final TreeView tree;
 
 
     public MotherboardTask(Motherboard motherboard, TreeView tree) {
@@ -25,22 +25,18 @@ public class MotherboardTask extends Task<Void>{
     @Override
     protected Void call() throws Exception {
         TimeUnit.SECONDS.sleep(2);
-        Platform.runLater(new Runnable() {
+        Platform.runLater(() -> {
+            motherboard.setInfo(wmiUtility.getMotherboardInformation());
 
-            @Override
-            public void run() {
-                motherboard.setInfo(wmiUtility.getMotherboardInformation());
+            TreeItem<String> motherboardItem = new TreeItem<>("Материнская плата");
 
-                TreeItem motherboardItem = new TreeItem("Материнская плата");
+            TreeItem<String> mManufacturer = new TreeItem<>("Производитель: " + motherboard.getManufacturer().getValue());
+            TreeItem<String> mModel = new TreeItem<>("Модель: " + motherboard.getModel().getValue());
+            TreeItem<String> mSocket = new TreeItem<>("Сокет: " + motherboard.getSocket().getValue());
 
-                TreeItem mManufacturer = new TreeItem("Производитель: " + motherboard.getManufacturer().getValue());
-                TreeItem mModel = new TreeItem("Модель: " + motherboard.getModel().getValue());
-                TreeItem mSocket = new TreeItem("Сокет: " + motherboard.getSocket().getValue());
-
-                motherboardItem.getChildren().addAll(mManufacturer, mModel, mSocket);
-                motherboardItem.setExpanded(true);
-                tree.getRoot().getChildren().add(motherboardItem);
-            }
+            motherboardItem.getChildren().addAll(mManufacturer, mModel, mSocket);
+            motherboardItem.setExpanded(true);
+            tree.getRoot().getChildren().add(motherboardItem);
         });
         return null;
     }

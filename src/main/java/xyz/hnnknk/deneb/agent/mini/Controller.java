@@ -1,6 +1,5 @@
 package xyz.hnnknk.deneb.agent.mini;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
@@ -21,10 +20,8 @@ public class Controller implements Initializable {
 
     @FXML private TreeView tree;
 
-    TreeItem rootItem;
-
     @FXML
-    public void handleSubmitButtonAction(ActionEvent actionEvent) {
+    public void handleSubmitButtonAction() {
 
         Motherboard mother = new Motherboard();
         DiskDrive drive = new DiskDrive();
@@ -54,7 +51,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        rootItem = new TreeItem("Компоненты");
+        TreeItem rootItem = new TreeItem("Компоненты");
         rootItem.setExpanded(true);
         tree.setRoot(rootItem);
     }

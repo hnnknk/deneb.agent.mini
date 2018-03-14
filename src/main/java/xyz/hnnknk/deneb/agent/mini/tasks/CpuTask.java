@@ -11,9 +11,9 @@ import java.util.concurrent.TimeUnit;
 
 public class CpuTask extends Task<Void> {
 
-    private Cpu cpu;
-    private WmiUtility wmiUtility;
-    private TreeView tree;
+    private final Cpu cpu;
+    private final WmiUtility wmiUtility;
+    private final TreeView tree;
 
 
     public CpuTask(Cpu cpu, TreeView tree) {
@@ -25,23 +25,19 @@ public class CpuTask extends Task<Void> {
     @Override
     protected Void call() throws Exception {
         TimeUnit.SECONDS.sleep(1);
-        Platform.runLater(new Runnable() {
+        Platform.runLater(() -> {
+            cpu.setInfo(wmiUtility.getCpuInformation());
 
-            @Override
-            public void run() {
-                cpu.setInfo(wmiUtility.getCpuInformation());
+            TreeItem<String> cpuItem = new TreeItem<>("Процессор");
 
-                TreeItem cpuItem = new TreeItem("Процессор");
+            TreeItem<String> cManufacturer = new TreeItem<>("Производитель: " + cpu.getManufacturer().getValue());
+            TreeItem<String> cModel = new TreeItem<>("Модель: " + cpu.getModel().getValue());
+            TreeItem<String> cSocket = new TreeItem<>("Сокет: " + cpu.getSocket().getValue());
+            TreeItem<String> cCores = new TreeItem<>("Количество ядер: " + cpu.getNumberOfCores().getValue());
 
-                TreeItem cManufacturer = new TreeItem("Производитель: " + cpu.getManufacturer().getValue());
-                TreeItem cModel = new TreeItem("Модель: " + cpu.getModel().getValue());
-                TreeItem cSocket = new TreeItem("Сокет: " + cpu.getSocket().getValue());
-                TreeItem cCores = new TreeItem("Количество ядер: " + cpu.getNumberOfCores().getValue());
-
-                cpuItem.getChildren().addAll(cManufacturer, cModel, cSocket, cCores);
-                cpuItem.setExpanded(true);
-                tree.getRoot().getChildren().add(cpuItem);
-            }
+            cpuItem.getChildren().addAll(cManufacturer, cModel, cSocket, cCores);
+            cpuItem.setExpanded(true);
+            tree.getRoot().getChildren().add(cpuItem);
         });
         return null;
     }

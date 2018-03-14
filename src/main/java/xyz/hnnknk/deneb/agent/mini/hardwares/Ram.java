@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class Ram extends Hardware{
 
-    private HashMap<String, ArrayList<StringProperty>> rams;
+    private final HashMap<String, ArrayList<StringProperty>> rams;
     private int ramCount;
 
     public Ram() {

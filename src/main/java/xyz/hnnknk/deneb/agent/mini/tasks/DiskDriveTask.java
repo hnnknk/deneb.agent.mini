@@ -2,7 +2,6 @@ package xyz.hnnknk.deneb.agent.mini.tasks;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import xyz.hnnknk.deneb.agent.mini.hardwares.DiskDrive;
@@ -12,9 +11,9 @@ import java.util.concurrent.TimeUnit;
 
 public class DiskDriveTask extends Task<Void> {
 
-    private DiskDrive diskDrive;
-    private WmiUtility wmiUtility;
-    private TreeView tree;
+    private final DiskDrive diskDrive;
+    private final WmiUtility wmiUtility;
+    private final TreeView tree;
 
     public DiskDriveTask(DiskDrive diskDrive, TreeView tree) {
         this.diskDrive = diskDrive;
@@ -25,33 +24,29 @@ public class DiskDriveTask extends Task<Void> {
     @Override
     protected Void call() throws Exception {
         TimeUnit.SECONDS.sleep(1);
-        Platform.runLater(new Runnable() {
+        Platform.runLater(() -> {
+            diskDrive.setInfo(wmiUtility.getDiskDriveInformation());
 
-            @Override
-            public void run() {
-                diskDrive.setInfo(wmiUtility.getDiskDriveInformation());
+            TreeItem<String> diskDriveItem = new TreeItem<>("Жесткие диски");
 
-                TreeItem diskDriveItem = new TreeItem("Жесткие диски");
+            for(int i = 1; i < diskDrive.getDiskCount(); i++) {
 
-                for(int i = 1; i < diskDrive.getDiskCount(); i++) {
+                TreeItem<String> d = new TreeItem<>("Жесткий диск №" + i);
 
-                    TreeItem d = new TreeItem("Жесткий диск №" + i);
+                TreeItem<String> dManufacturer = new TreeItem<>("Производитель: "
+                        + diskDrive.getDiskDrives().get("#" + i).get(0).getValue());
+                TreeItem<String> dCapacity = new TreeItem<>("Емкость: "
+                        + diskDrive.getDiskDrives().get("#" + i).get(1).getValue() + " Gb") ;
 
-                    TreeItem dManufacturer = new TreeItem("Производитель: "
-                            + diskDrive.getDiskDrives().get("#" + i).get(0).getValue());
-                    TreeItem dCapacity = new TreeItem("Емкость: "
-                            + diskDrive.getDiskDrives().get("#" + i).get(1).getValue() + " Gb") ;
-
-                    d.setExpanded(true);
-                    d.getChildren().addAll(dManufacturer, dCapacity);
-                    diskDriveItem.getChildren().add(d);
-
-                }
-
-                diskDriveItem.setExpanded(true);
-                tree.getRoot().getChildren().add(diskDriveItem);
+                d.setExpanded(true);
+                d.getChildren().addAll(dManufacturer, dCapacity);
+                diskDriveItem.getChildren().add(d);
 
             }
+
+            diskDriveItem.setExpanded(true);
+            tree.getRoot().getChildren().add(diskDriveItem);
+
         });
         return null;
     }

@@ -6,9 +6,9 @@ import javafx.beans.property.StringProperty;
 import java.util.ArrayList;
 
 public class Motherboard extends Hardware {
-    private StringProperty manufacturer;
-    private StringProperty model;
-    private StringProperty socket;
+    private final StringProperty manufacturer;
+    private final StringProperty model;
+    private final StringProperty socket;
 
     public Motherboard() {
         manufacturer = new SimpleStringProperty("Сбор информации");
@@ -20,7 +20,7 @@ public class Motherboard extends Hardware {
         return manufacturer;
     }
 
-    public void setManufacturer(String manufacturer) {
+    private void setManufacturer(String manufacturer) {
         this.manufacturer.setValue(manufacturer);
     }
 
@@ -28,7 +28,7 @@ public class Motherboard extends Hardware {
         return model;
     }
 
-    public void setModel(String model) {
+    private void setModel(String model) {
         this.model.setValue(model);
     }
 
@@ -36,7 +36,7 @@ public class Motherboard extends Hardware {
         return socket;
     }
 
-    public void setSocket(String socket) {
+    private void setSocket(String socket) {
         this.socket.setValue(socket);
     }
 

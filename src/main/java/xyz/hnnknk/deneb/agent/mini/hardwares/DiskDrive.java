@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class DiskDrive extends Hardware{
 
-    private HashMap<String, ArrayList<StringProperty>> diskDrives;
+    private final HashMap<String, ArrayList<StringProperty>> diskDrives;
     private int diskCount;
 
     public DiskDrive() {
