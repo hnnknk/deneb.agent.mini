@@ -1,34 +1,54 @@
 package xyz.hnnknk.deneb.agent.mini;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import xyz.hnnknk.deneb.agent.mini.hardwares.DiskDrive;
 import xyz.hnnknk.deneb.agent.mini.hardwares.Motherboard;
+import xyz.hnnknk.deneb.agent.mini.tasks.DiskDriveTask;
 import xyz.hnnknk.deneb.agent.mini.tasks.MotherboardTask;
 
-public class Controller {
+import javax.swing.text.TableView;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-    @FXML private Label motherboard;
+public class Controller implements Initializable {
 
-    @FXML private Label cpu;
+    @FXML private TreeView tree;
 
-    @FXML private Label ram;
-
-    @FXML private Label diskDrive;
+    TreeItem rootItem;
 
     @FXML
-    protected void getMotherboardManufacturer(ActionEvent actionEvent) throws Exception {
+    public void handleSubmitButtonAction(ActionEvent actionEvent) {
 
         Motherboard mother = new Motherboard();
+        DiskDrive drive = new DiskDrive();
 
-        MotherboardTask mTask = new MotherboardTask(mother);
-        motherboard.textProperty().bind(mTask.getMotherboard().getManufacturer());
+        MotherboardTask mTask = new MotherboardTask(mother, tree);
         Thread t = new Thread(mTask);
         t.setDaemon(true);
         t.start();
+
+        DiskDriveTask dTask = new DiskDriveTask(drive, tree);
+        Thread t1 = new Thread(dTask);
+        t1.setDaemon(true);
+        t1.start();
     }
 
-    public void exit(ActionEvent actionEvent) {
-        System.exit(0);
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        rootItem = new TreeItem("Компоненты");
+        rootItem.setExpanded(true);
+        tree.setRoot(rootItem);
+    }
+
+    private void createTreeView() {
+
     }
 }

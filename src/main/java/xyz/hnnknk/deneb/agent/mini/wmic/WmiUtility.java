@@ -33,7 +33,11 @@ public class WmiUtility {
 
     public ArrayList<String> getDiskDriveInformation() {
         information = new ArrayList<>();
-        for(String s : executeCommand("diskdrive", "caption")) {
+        ArrayList<String> list = executeCommand("diskdrive", "caption");
+        if(list.size() > 1) {
+            information.add(Integer.toString(list.size()));
+        }
+        for(String s : list) {
             information.add(s.split("\\s+")[0]);
         }
         for(String s : executeCommand("diskdrive", "size")) {

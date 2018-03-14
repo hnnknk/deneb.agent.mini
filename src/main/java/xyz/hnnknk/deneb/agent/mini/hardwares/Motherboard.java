@@ -3,13 +3,17 @@ package xyz.hnnknk.deneb.agent.mini.hardwares;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Motherboard {
+import java.util.ArrayList;
+
+public class Motherboard extends Hardware {
     private StringProperty manufacturer;
     private StringProperty model;
+    private StringProperty socket;
 
     public Motherboard() {
-        manufacturer = new SimpleStringProperty("Неизвестно");
-        model = new SimpleStringProperty("Модель");
+        manufacturer = new SimpleStringProperty("Сбор информации");
+        model = new SimpleStringProperty("Сбор информации");
+        socket = new SimpleStringProperty("Сбор информации");
     }
 
     public StringProperty getManufacturer() {
@@ -26,5 +30,20 @@ public class Motherboard {
 
     public void setModel(String model) {
         this.model.setValue(model);
+    }
+
+    public StringProperty getSocket() {
+        return socket;
+    }
+
+    public void setSocket(String socket) {
+        this.socket.setValue(socket);
+    }
+
+    @Override
+    public void setInfo(ArrayList<String> input) {
+        setManufacturer(input.get(0));
+        setModel(input.get(1));
+        setSocket(input.get(2));
     }
 }

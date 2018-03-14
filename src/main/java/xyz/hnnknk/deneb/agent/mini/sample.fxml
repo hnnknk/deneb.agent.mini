@@ -1,66 +1,37 @@
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
 
-<?import javafx.scene.control.Button?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.control.TreeItem?>
+<TabPane fx:id="tabPane" xmlns="http://javafx.com/javafx/8.0.111"
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="xyz.hnnknk.deneb.agent.mini.Controller"
+         prefHeight="480.0" prefWidth="640.0">
+    <tabs>
+        <Tab fx:id="componentsTab" text="Компоненты компьютера" closable="false">
 
+            <GridPane hgap="25" vgap="15" alignment="CENTER">
+                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
 
-<GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"  hgap="25" vgap="15"
-          fx:controller="xyz.hnnknk.deneb.agent.mini.Controller"
-          prefHeight="480.0" prefWidth="640.0">
+                <TreeView fx:id="tree" minWidth="400">
 
-<padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                </TreeView>
 
+                <Button text="Запуск" onAction="#handleSubmitButtonAction"
+                        GridPane.halignment="RIGHT"
+                        GridPane.columnIndex="3" GridPane.rowIndex="2"/>
 
-    <Label text="Тип оборудования"
-       GridPane.columnIndex="0" GridPane.rowIndex="0"
-       GridPane.halignment="RIGHT"/>
+            </GridPane>
 
-    <Label text="Производители"
-           GridPane.columnIndex="1" GridPane.rowIndex="0"
-       GridPane.halignment="LEFT"/>
-
-    <Label text="Материнская плата"
-       GridPane.columnIndex="0" GridPane.rowIndex="1"
-       GridPane.halignment="RIGHT"/>
-
-    <Label fx:id="motherboard"  minWidth="150"
-           GridPane.columnIndex="1" GridPane.rowIndex="1"
-           GridPane.halignment="LEFT"/>
-
-    <Label text="Процессор"
-           GridPane.columnIndex="0" GridPane.rowIndex="2"
-           GridPane.halignment="RIGHT"/>
-
-    <Label fx:id="cpu"  minWidth="150"
-           GridPane.columnIndex="1" GridPane.rowIndex="2"
-           GridPane.halignment="LEFT"/>
-
-    <Label text="Оперативная память"
-           GridPane.columnIndex="0" GridPane.rowIndex="3"
-           GridPane.halignment="RIGHT"/>
-
-    <Label fx:id="ram"  minWidth="150"
-           GridPane.columnIndex="1" GridPane.rowIndex="3"
-           GridPane.halignment="LEFT"/>
-
-    <Label text="Жесткий диск"
-           GridPane.columnIndex="0" GridPane.rowIndex="4"
-           GridPane.halignment="RIGHT"/>
-
-    <Label fx:id="diskDrive"  minWidth="150"
-           GridPane.columnIndex="1" GridPane.rowIndex="4"
-           GridPane.halignment="LEFT"/>
-
-
-    <Button text="Запуск проверки" onAction="#getMotherboardManufacturer"
-        GridPane.halignment="RIGHT"
-        GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-
-    <Button text="Выход" onAction="#exit"
-            GridPane.halignment="RIGHT"
-            GridPane.columnIndex="2" GridPane.rowIndex="5"/>
-
-
-</GridPane>
+        </Tab>
+        <Tab fx:id="reportTab" text="Отчеты" closable="false">
+        </Tab>
+    </tabs>
+</TabPane>
