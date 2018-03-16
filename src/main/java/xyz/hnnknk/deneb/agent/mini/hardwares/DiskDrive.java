@@ -10,7 +10,7 @@ public class DiskDrive extends Hardware{
 
     public DiskDrive() {
         diskDrives = new HashMap<>();
-        diskCount = 1;
+        diskCount = 0;
     }
 
     @Override
@@ -20,10 +20,11 @@ public class DiskDrive extends Hardware{
                 ArrayList<String> list = new ArrayList<>();
                 list.add(optimizeDriveName(input.get(i)));
                 list.add(optimizeSize(input.get(i+2)));
-                diskDrives.put("#" + diskCount, list);
                 diskCount++;
+                diskDrives.put("#" + diskCount, list);
             }
         } else {
+            diskCount = 1;
             ArrayList<String> list = new ArrayList<>();
             list.add(optimizeDriveName(input.get(0)));
             list.add(optimizeSize(input.get(1)));
@@ -38,7 +39,11 @@ public class DiskDrive extends Hardware{
     private String optimizeSize(String input) {
         long l = Long.parseLong(input.trim());
         l = l / (1000 * 1000 * 1000);
-        return Long.toString(l);
+        if(l == 0) {
+            return "< 1";
+        } else {
+            return Long.toString(l);
+        }
     }
 
     public HashMap<String, ArrayList<String>> getDiskDrives() {

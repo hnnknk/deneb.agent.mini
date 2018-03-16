@@ -83,10 +83,6 @@ public class WmiUtility {
                 results.remove(i);
             }
         }
-        for(String s : results) {
-            System.out.println("string = " + s);
-            System.out.println("size this string = " + s.length());
-        }
         return results;
     }
 }

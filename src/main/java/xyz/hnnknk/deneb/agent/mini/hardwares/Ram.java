@@ -10,7 +10,7 @@ public class Ram extends Hardware{
 
     public Ram() {
         rams = new HashMap<>();
-        ramCount = 1;
+        ramCount = 0;
     }
 
     @Override
@@ -21,14 +21,16 @@ public class Ram extends Hardware{
                 list.add(input.get(i));
                 list.add(input.get(i+2));
                 list.add(optimizeCapacity(input.get(i+4)));
-                rams.put("#" + ramCount, list);
                 ramCount++;
+                rams.put("#" + ramCount, list);
+
             }
         } else {
             ArrayList<String> list = new ArrayList<>();
             list.add(input.get(0));
             list.add(input.get(1));
             list.add(optimizeCapacity(input.get(2)));
+            ramCount = 1;
             rams.put("#1", list);
         }
     }
