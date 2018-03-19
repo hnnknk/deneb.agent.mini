@@ -9,32 +9,56 @@ import xyz.hnnknk.deneb.agent.mini.wmic.WmiUtility;
 
 import java.util.concurrent.TimeUnit;
 
-public class MotherboardTask extends Task<Void>{
+/**
+ * The Motherboard task.
+ */
+public class MotherboardTask extends Task<Void> {
 
+    /**
+     * Instance of a motherboard.
+     */
     private final Motherboard motherboard;
+    /**
+     * Instance of a standard wmiUtility.
+     */
     private final WmiUtility wmiUtility;
+    /**
+     * Instance of a JavaFx TreeView.
+     */
     private final TreeView tree;
 
 
-    public MotherboardTask(Motherboard motherboard, TreeView tree) {
+    /**
+     * Instantiates a new Motherboard task.
+     *
+     * @param motherboard the motherboard
+     * @param tree the JavaFx TreeView
+     */
+    public MotherboardTask(final Motherboard motherboard, final TreeView tree) {
         this.motherboard = motherboard;
         wmiUtility = new WmiUtility();
         this.tree = tree;
     }
 
     @Override
-    protected Void call() throws Exception {
+    protected final Void call() throws Exception {
         TimeUnit.SECONDS.sleep(2);
         Platform.runLater(() -> {
             motherboard.setInfo(wmiUtility.getMotherboardInformation());
 
-            TreeItem<String> motherboardItem = new TreeItem<>("Материнская плата");
+            TreeItem<String> motherboardItem = new TreeItem<>(
+                    "Материнская плата");
 
-            TreeItem<String> mManufacturer = new TreeItem<>("Производитель: " + motherboard.getManufacturer());
-            TreeItem<String> mModel = new TreeItem<>("Модель: " + motherboard.getModel());
-            TreeItem<String> mSocket = new TreeItem<>("Сокет: " + motherboard.getSocket());
+            TreeItem<String> mManufacturer = new TreeItem<>(
+                    "Производитель: "
+                    + motherboard.getManufacturer());
+            TreeItem<String> mModel = new TreeItem<>("Модель: "
+                    + motherboard.getModel());
+            TreeItem<String> mSocket = new TreeItem<>("Сокет: "
+                    + motherboard.getSocket());
 
-            motherboardItem.getChildren().addAll(mManufacturer, mModel, mSocket);
+            motherboardItem.getChildren()
+                    .addAll(mManufacturer, mModel, mSocket);
             motherboardItem.setExpanded(true);
             tree.getRoot().getChildren().add(motherboardItem);
         });

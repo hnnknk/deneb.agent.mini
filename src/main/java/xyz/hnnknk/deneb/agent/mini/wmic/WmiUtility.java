@@ -5,17 +5,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+/**
+ * The type Wmi utility.
+ */
 public class WmiUtility {
 
+    /**
+     * List with information from wmi.
+     */
     private ArrayList<String> information;
 
-    public WmiUtility() {
-
-       // System.out.println(System.getenv());
-      //  String[] command = {"CMD", "/C", "WMIC /user:savineu /password:deathmushi /node:192.168.2.34 BASEBOARD GET manufacturer"};
-    }
-
-    public ArrayList<String> getMotherboardInformation() {
+    /**
+     * Gets motherboard information.
+     *
+     * @return the motherboard information
+     */
+    public final ArrayList<String> getMotherboardInformation() {
         information = new ArrayList<>();
         information.addAll(executeCommand("baseboard", "manufacturer"));
         information.addAll(executeCommand("baseboard", "product"));
@@ -23,10 +28,15 @@ public class WmiUtility {
         return information;
     }
 
-    public ArrayList<String> getDiskDriveInformation() {
+    /**
+     * Gets disk drive information.
+     *
+     * @return the disk drive information
+     */
+    public final ArrayList<String> getDiskDriveInformation() {
         information = new ArrayList<>();
         ArrayList<String> list = executeCommand("diskdrive", "caption");
-        if(list.size() > 1) {
+        if (list.size() > 1) {
             information.add(Integer.toString(list.size()));
         }
         information.addAll(list);
@@ -34,7 +44,12 @@ public class WmiUtility {
         return information;
     }
 
-    public ArrayList<String> getCpuInformation() {
+    /**
+     * Gets cpu information.
+     *
+     * @return the cpu information
+     */
+    public final ArrayList<String> getCpuInformation() {
         information = new ArrayList<>();
         information.addAll(executeCommand("cpu", "manufacturer"));
         information.addAll(executeCommand("cpu", "name"));
@@ -43,10 +58,15 @@ public class WmiUtility {
         return information;
     }
 
-    public ArrayList<String> getRamInformation() {
+    /**
+     * Gets ram information.
+     *
+     * @return the ram information
+     */
+    public final ArrayList<String> getRamInformation() {
         information = new ArrayList<>();
         ArrayList<String> list = executeCommand("memorychip", "manufacturer");
-        if(list.size() > 1) {
+        if (list.size() > 1) {
             information.add(Integer.toString(list.size()));
         }
         information.addAll(list);
@@ -56,7 +76,15 @@ public class WmiUtility {
         return information;
     }
 
-    private synchronized ArrayList<String> executeCommand(String hardware, String type) {
+    /**
+     * Gets information from wmi cmd command.
+     *
+     * @param hardware the hardware's name for cmd command
+     * @param type the type of information for cmd command
+     * @return list with information from wmi
+     */
+    private synchronized ArrayList<String> executeCommand(
+            final String hardware, final String type) {
         ArrayList<String> results = new ArrayList<>();
         String lastPart = "WMIC " + hardware + " GET " + type;
         String[] command = {"CMD", "/C", lastPart};
@@ -66,10 +94,11 @@ public class WmiUtility {
             p.getOutputStream().close();
 
             String s;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(p.getInputStream()));
 
             while ((s = reader.readLine()) != null) {
-                if(s.length() > 0) {
+                if (s.length() > 0) {
                     results.add(s);
                 }
 
@@ -78,8 +107,8 @@ public class WmiUtility {
             e.printStackTrace();
         }
 
-        for(int i = 0; i < results.size(); i++) {
-            if(results.get(i).toLowerCase().contains(type)) {
+        for (int i = 0; i < results.size(); i++) {
+            if (results.get(i).toLowerCase().contains(type)) {
                 results.remove(i);
             }
         }

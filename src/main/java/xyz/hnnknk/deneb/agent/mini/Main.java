@@ -8,19 +8,27 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**
+ * The main class.
+ */
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("sample.fxml")));
+    public final void start(final Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(
+                getClass().getClassLoader().getResource("sample.fxml")));
 
         primaryStage.setTitle("Deneb mini agent");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
-
-    public static void main(String[] args)  {
+    /**
+     * Main.
+     *
+     * @param args the args
+     */
+    public static void main(final String[] args)  {
 
         launch(args);
     }

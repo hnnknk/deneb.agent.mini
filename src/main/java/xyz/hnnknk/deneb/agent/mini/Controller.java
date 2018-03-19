@@ -16,10 +16,19 @@ import xyz.hnnknk.deneb.agent.mini.tasks.RamTask;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+/**
+ * The JavaFx controller.
+ */
+public final class Controller implements Initializable {
 
+    /**
+     * Standard JavaFx TreeView.
+     */
     @FXML private TreeView tree;
 
+    /**
+     * Handle submit button action.
+     */
     @FXML
     public void handleSubmitButtonAction() {
 
@@ -50,7 +59,7 @@ public class Controller implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         TreeItem rootItem = new TreeItem("Компоненты");
         rootItem.setExpanded(true);
         tree.setRoot(rootItem);

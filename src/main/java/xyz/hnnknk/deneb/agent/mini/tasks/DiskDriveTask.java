@@ -9,34 +9,56 @@ import xyz.hnnknk.deneb.agent.mini.wmic.WmiUtility;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The Disk drive task.
+ */
 public class DiskDriveTask extends Task<Void> {
 
+    /**
+     * Instance of a disk drive.
+     */
     private final DiskDrive diskDrive;
+    /**
+     * Instance of a standard wmiUtility.
+     */
     private final WmiUtility wmiUtility;
+    /**
+     * Instance of a JavaFx TreeView.
+     */
     private final TreeView tree;
 
-    public DiskDriveTask(DiskDrive diskDrive, TreeView tree) {
+    /**
+     * Instantiates a new Disk drive task.
+     *
+     * @param diskDrive the disk drive
+     * @param tree the JavaFx TreeView
+     */
+    public DiskDriveTask(final DiskDrive diskDrive, final TreeView tree) {
         this.diskDrive = diskDrive;
         wmiUtility = new WmiUtility();
         this.tree = tree;
     }
 
     @Override
-    protected Void call() throws Exception {
+    protected final Void call() throws Exception {
         TimeUnit.SECONDS.sleep(1);
         Platform.runLater(() -> {
             diskDrive.setInfo(wmiUtility.getDiskDriveInformation());
 
-            TreeItem<String> diskDriveItem = new TreeItem<>("Жесткие диски");
+            TreeItem<String> diskDriveItem = new TreeItem<>(
+                    "Жесткие диски");
 
-            for(int i = 1; i < diskDrive.getDiskCount(); i++) {
+            for (int i = 1; i <= diskDrive.getDiskCount(); i++) {
 
-                TreeItem<String> d = new TreeItem<>("Жесткий диск №" + i);
+                TreeItem<String> d = new TreeItem<>(
+                        "Жесткий диск №" + i);
 
-                TreeItem<String> dManufacturer = new TreeItem<>("Производитель: "
-                        + diskDrive.getDiskDrives().get("#" + i).get(0));
-                TreeItem<String> dCapacity = new TreeItem<>("Емкость: "
-                        + diskDrive.getDiskDrives().get("#" + i).get(1) + " Gb") ;
+                TreeItem<String> dManufacturer = new TreeItem<>(
+                        "Производитель: " + diskDrive.getDiskDrives()
+                                .get("#" + i).get(0));
+                TreeItem<String> dCapacity = new TreeItem<>(
+                        "Емкость: " + diskDrive.getDiskDrives()
+                                .get("#" + i).get(1) + " Gb");
 
                 d.setExpanded(true);
                 d.getChildren().addAll(dManufacturer, dCapacity);
